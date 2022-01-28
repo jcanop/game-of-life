@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>The Game of Life</title>
+		<link rel="stylesheet" href="include/main.css"/>
+		<link rel="stylesheet" href="include/modal.css"/>
+		<link rel="stylesheet" href="include/toggle.css"/>
+		<script type="module">
+			import * as main from "./include/main.js";
+			window.init=() => main.initGame();
+			window.updateGrid=() => main.updateUniverse();
+			window.randomGrid=() => main.randomUniverse();
+			window.play=() => main.playUniverse();
+			window.stop=() => main.stopUniverse();
+			window.setCircular=(value) => main.setCircularUniverse(value);
+			window.setDisplayDeadCells=(value) => main.setDisplayDead(value);
+		</script>
+		<script type="text/javascript" src="include/i18n.js"></script>
+	</head>
+	<body onload="init().then(() => i18n.init('en'));">
+		<!-- Control Panel -->
+		<div id="controls">
+			<div>
+				<form id="form_grid" onsubmit="updateGrid(); return false">
+					<h1 i18n="ctrls.grid">Universe</h1>
+					<span i18n="ctrls.grid.size">Size:</span>
+					<input id="grid_width" type="number"
+						i18n="ctrls.grid.width" placeholder="width"
+						required="true" min="10" max="1000"/> x
+					<input id="grid_height" type="number"
+						i18n="ctrls.grid.height" placeholder="height"
+						required="true" min="10" max="1000"/>
+					<input type="submit" i18n="ctrls.grid.create" value="Create"/>
+				</form>
+			</div>
+			<hr/>
+			<div>
+				<form id="form_pattern">
+					<h1 i18n="ctrls.patterns">Patterns</h1>
+					<select id="pattern" onmouseleave="this.blur();">
+						<option value="pointer">Pointer</option>
+					</select>
+				</form>
+			</div>
+			<hr/>
+			<div>
+				<form id="form_random" onsubmit="randomGrid(); return false">
+					<h1 i18n="ctrls.random">Randomly Populate</h1>
+					<span i18n="ctrls.random.density">Density:</span>
+					<select id="density">
+						<option i18n="ctrls.random.density.high"   value="50">High</option>
+						<option i18n="ctrls.random.density.medium" value="35">Medium</option>
+						<option i18n="ctrls.random.density.low"    value="20">Low</option>
+					</select>
+					<input type="submit" i18n="ctrls.random.populate" value="Populate"/>
+				</form>
+			</div>
+			<hr/>
+			<div>
+				<form id="form_sim" onsubmit="play(); return false">
+					<h1 i18n="ctrls.sim">Simulation</h1>
+					<span id="ctrls.speed" i18n="ctrls.sim.speed">Speed:</span>
+					<input id="speed" type="number"
+						required="true" min="100" max="1000"/>
+					<span i18n="ctrls.sim.msec">msec</span>
+					<input id="button_play" type="submit"
+						i18n="ctrls.sim.play" value="Play"/>
+					<input id="button_stop" type="button"
+						i18n="ctrls.sim.stop" value="Stop"
+						onclick="stop()" style="display: none"/>
+				</form>
+			</div>
+			<div id="icons">
+				<a href="#modal_settings">
+					<img src="images/gear.svg" alt="Settings" width="24px" height="24px" />
+				</a>
+				<a href="#modal_info">
+					<img src="images/info.svg" alt="Info" width="24px" height="24px"/>
+				</a>
+				<a href="https://github.com/jcanop/game-of-life" target="_blank">
+					<img src="images/github.svg" alt="Github" width="24px" height="24px"/>
+				</a>
+			</div>
+			<div id="stats">
+				<h1 i18n="stats.title">Stats</h1>
+				<hr/>
+				<table>
+					<tr>
+						<td><span i18n="stats.generation">Generation</span></td>
+						<td><span id="stats_generation"></span></td>
+					</tr>
+					<tr>
+						<td><span i18n="stats.population">Population</span></td>
+						<td><span id="stats_population"></span></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<!-- Container for the reder table -->
+		<div id="container"></div>
+
+		<!-- Modal: Settings -->
+		<div id="modal_settings" class="modal">
+			<div class="modal_content">
+				<header>
+					<span i18n="settings.title">Settings</span>
+					<a href="#">X</a>
+				</header>
+				<table>
+					<tr>
+						<td><span i18n="settings.language">Language</span></td>
+						<td>
+							<select id="language"
+								onchange="i18n.change(this.options[this.selectedIndex].value);">
+								<option value="en">English</option>
+								<option value="es">Español</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td><span i18n="settings.circular">Circular Universe</span></td>
+						<td>
+							<label class="switch">
+								<input id="circular_universe" type="checkbox"
+									onchange="setCircular(this.checked)"/>
+								<span class="slider round"></span>
+							</label>
+						</td>
+					</tr>
+					<tr>
+						<td><span i18n="settings.display_dead">Display Dead Cells</span></td>
+						<td>
+							<label class="switch">
+								<input id="display_dead" type="checkbox"
+									onchange="setDisplayDeadCells(this.checked)"/>
+								<span class="slider round"></span>
+							</label>
+						</td>
+					</tr>
+					<tr>
+						<td><span i18n="settings.display_stats">Display Stats</span></td>
+						<td>
+							<label class="switch">
+								<input id="display_stats" type="checkbox"
+									onchange="document.getElementById('stats').style.opacity=(this.checked?1:0)"/>
+								<span class="slider round"></span>
+							</label>
+						</td>
+					</tr>
+				</table>
+				<footer>
+					<input type="button" i18n="settings.close" value="Close"
+						onclick="window.location='#'"/>
+				</footer>
+			</div>
+			</div>
+		</div>
+
+		<!-- Modal: Info -->
+		<div id="modal_info" class="modal">
+			<div class="modal_content">
+				<header>
+					<span i18n="info.title">Information</span>
+					<a href="#">X</a>
+				</header>
+				<div i18n="info.content">
+					<h1>Introduction</h1>
+					<p>This is a simple implementation of the famous <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank">Conway's Game of Life</a>. This project was implemented using Rust for all the game's logic and HTML / Javascript for the user interface. Everything runs inside the web browser, thanks to WebAssembly.</p>
+					<h1>Configuration</h1>
+					<p>You can find the control panel at the top part of the page, and it allows you to make the following operations:
+						<ul>
+							<li><code>Universe</code> - Defines the universe's size.</li>
+							<li><code>Patterns</code> - Here is a small collection of well-known patterns to use in the universe. The default is the <code>Pointer</code> that manipulates just one cell at a time. Moving the mouse pointer over the universe displays the pattern, and you can toggle between live and dead cells by clicking. You can rotate the pattern to the right using the 'D' key and to the left using the 'A' key of the keyboard.</li>
+							<li><code>Randomly Populate</code> - Randomly populate the universe; please use the <code>Density</code> control to control the number of cells to create.</li>
+							<li><code>Simulation</code> - Defines the speed of how often a new generation is created. The speed is defined in milliseconds. Also, it has the controls to start and stop the simulation.</li>
+						</ul>
+					</p>
+					<h1>Playing the Game</h1>
+					<p>You can start the simulation using the green <code>Play</code> button. Once the simulation has started, the color of the button will change to red and will read <code>Stop</code>. At this point, you can pause the simulation using this button.</p>
+
+				</div>
+				<footer>
+					<input type="button" i18n="info.close" value="Close"
+						onclick="window.location='#'"/>
+				</footer>
+			</div>
+		</div>
+	</body>
+</html>

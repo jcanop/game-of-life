@@ -1,0 +1,101 @@
+body {
+	font-family: sans-serif;
+	font-size: 14px;
+	background-color: #566573;
+}
+
+form {
+	margin-bottom: 0px;
+}
+
+#controls {
+	background-color: lightgray;
+	border: 1px solid black;
+	border-radius: 8px;
+	padding: 10px 20px 10px 20px;
+	margin-bottom: 10px;
+	display: flex;
+	width: 900px;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+}
+
+#controls h1 {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+#icons {
+	position: absolute;
+	right: 10px;
+}
+
+#icons a {
+	text-decoration: none;
+}
+
+#button_play {
+	background-color: #2ECC71;
+	border-radius: 10px;
+	width: 70px;
+}
+
+#button_stop {
+	background-color: #EC7063;
+	border-radius: 10px;
+	width: 70px;
+}
+
+#stats {
+	position: absolute;
+	bottom: -130px;
+	left: 0px;
+	background-color: rgba(0, 0, 0, .6);
+	color: white;
+	border-radius: 8px;
+	padding: 10px 20px 10px 20px;
+	width: 160px;
+	opacity: 0;
+}
+
+#stats table {
+	width: 100%;
+}
+
+#stats td:nth-child(2) {
+	text-align: right;
+}
+
+#container table {
+	background-color: lightgrey;;
+	border-spacing: 0px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#container td {
+	border: 1px solid white;
+	border-radius: 3px;
+	width:  8px !important;
+	height: 8px !important;
+}
+
+#container td.empty {
+	background-color: transparent;
+}
+
+#container td.over {
+	background-color: #FCFF80;
+	border-radius: 0px;
+}
+
+#container td.alive {
+	background-color: blue;
+	border-radius: 10px;
+}
+
+#container td.dead {
+	background-color: #ABEBC6;
+	border-radius: 3px;
+}

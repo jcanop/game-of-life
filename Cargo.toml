@@ -1,0 +1,19 @@
+[package]
+name = "game-of-life"
+version = "0.1.0"
+authors = ["Jorge Cano <contact@jorgecano.tech>"]
+description = "A simple implementation of Conway's Game of Life"
+license = "MIT"
+repository = "https://github.com/jcanop/game-of-life"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+getrandom = { version = "0.2", features = ["js"] }
+rand = "0.8"
+wasm-bindgen = "0.2"
+
+[dev-dependencies]
+wasm-bindgen-test = "0.2"

@@ -1,0 +1,5 @@
+LICENSE
+README.md
+game_of_life.d.ts
+game_of_life_bg.wasm.d.ts
+package.json
