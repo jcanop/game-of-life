@@ -1,6 +1,9 @@
 # Game of Life
 This project is a simple implementation of the famous [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life). All the game's logic was implemented in Rust, and the user interface was written in HTML and Javascript. The game runs entirely in the browser, thanks to WebAssembly.
 
+## Running Example
+You can see a running example in the following link https://jcanop.github.io/game-of-life/.
+
 ## Why another Conway's Game of Life implementation?
 Well, currently, I'm learning Rust and WebAssembly, so I thought it would be a fun way to practice what I learned building this little project over the weekend. Also, it's been a while since the last time I wrote something in the front-end. Usually, my projects are related to back-end technologies, so it's always good to go back to remember and practice technologies that you have not used for a while.
 
