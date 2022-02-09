@@ -35,6 +35,12 @@ form {
 	text-decoration: none;
 }
 
+#grid_width,
+#grid_height,
+#speed {
+	width: 60px;
+}
+
 #button_play {
 	background-color: #2ECC71;
 	border-radius: 10px;
