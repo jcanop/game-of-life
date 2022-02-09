@@ -9,6 +9,7 @@
 	"ctrls.patterns.oscillators": "Osciladores",
 	"ctrls.patterns.spaceships": "Naves espaciales",
 	"ctrls.patterns.methuselah": "Matusalenes",
+	"ctrls.patterns.gun": "Cañón",
 	"ctrls.random": "Poblar Aleatoriamente",
 	"ctrls.random.density": "Densidad:",
 	"ctrls.random.density.high": "Alto",
